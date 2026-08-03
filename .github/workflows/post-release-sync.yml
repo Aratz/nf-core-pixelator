@@ -16,7 +16,8 @@ concurrency:
 
 jobs:
   back-sync:
-    if: github.repository == 'nf-core/pixelator'
+    # TODO: revert to 'nf-core/pixelator' before merging to the official repo (temporary fork testing)
+    if: github.repository == 'Aratz/nf-core-pixelator'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -27,7 +28,8 @@ jobs:
         with:
           ref: dev
           fetch-depth: 0
-          token: ${{ secrets.NF_CORE_BOT_AUTH_TOKEN }}
+          # TODO: revert to secrets.NF_CORE_BOT_AUTH_TOKEN before merging (temporary fork testing)
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compute versions
         id: v
@@ -84,7 +86,8 @@ jobs:
 
       - name: Commit, push and open PR
         env:
-          GH_TOKEN: ${{ secrets.NF_CORE_BOT_AUTH_TOKEN }}
+          # TODO: revert to secrets.NF_CORE_BOT_AUTH_TOKEN before merging (temporary fork testing)
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BR="post-release_${{ steps.v.outputs.released }}"
           git add -A
